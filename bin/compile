@@ -127,10 +127,9 @@ export CARGO_TARGET_DIR="$CACHE_DIR/target"
 
 # Setup Circom
 if [ -d "./circom" ]; then
-  # https://doc.rust-lang.org/cargo/commands/cargo-install.html#compilation-options
-  # By default target dir gets overridden when path is set.
+  # TODO: check if there are any new tags in the circom directory and then rebuild.
   mkdir -p $BUILD_DIR/bin
-  cp -R $CARGO_TARGET_DIR/release/ $BUILD_DIR/bin/
+  cp -a $CARGO_TARGET_DIR/release/. $BUILD_DIR/bin/
 else
   git clone https://github.com/iden3/circom.git
   cd circom
