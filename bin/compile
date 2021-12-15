@@ -125,8 +125,12 @@ fi
 # which describe how this needs to be named.
 export CARGO_TARGET_DIR="$CACHE_DIR/target"
 
-# Setup CIRCOM (TODO: clean this up into a proper build process)
-git clone https://github.com/iden3/circom.git
-cd circom
-cargo build --release
-cargo install --path circom --root $BUILD_DIR
+# Setup Circom
+if [ -d "./circom" ]; then
+  cargo install --path circom --root $BUILD_DIR
+else
+  git clone https://github.com/iden3/circom.git
+  cd circom
+  cargo build --release
+  cargo install --path circom --root $BUILD_DIR
+fi
