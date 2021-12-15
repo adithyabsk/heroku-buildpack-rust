@@ -127,7 +127,7 @@ export CARGO_TARGET_DIR="$CACHE_DIR/target"
 
 # Setup Circom
 if [ -d "./circom" ]; then
-  cargo install --path circom --root $BUILD_DIR
+  cargo install --manifest-path circom/Cargo.toml --root $BUILD_DIR
 else
   git clone https://github.com/iden3/circom.git
   cd circom
