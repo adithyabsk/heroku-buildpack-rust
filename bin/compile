@@ -81,24 +81,24 @@ fi
 # Record our Rust build environment configuration in an export file, in
 # case another buildpack needs it to build Ruby gems that use Rust or
 # something like that.
-cat <<EOF > $BP_DIR/export
+cat <<EOF > $BUILD_DIR/.profile.d/rust.sh
 # Our rustup installation.
-export RUSTUP_HOME="$CACHE_DIR/multirust"
+export RUSTUP_HOME="$BUILD_DIR/multirust"
 
 # Our cargo installation.  We implicitly trust Rustup and Cargo
 # to do the right thing when new versions are released.
-export CARGO_HOME="$CACHE_DIR/cargo"
+export CARGO_HOME="$BUILD_DIR/cargo"
 
 # Include binaries installed by cargo and rustup in our path.
 PATH="\$CARGO_HOME/bin:\$PATH"
 EOF
 
 # Read our build environment back in and evaluate it so that we can use it.
-. $BP_DIR/export
+. $BUILD_DIR/.profile.d/rust.sh
 
 # Switch to our cache directory.
-mkdir -p "$CACHE_DIR"
-cd "$CACHE_DIR"
+mkdir -p "$BUILD_DIR"
+cd "$BUILD_DIR"
 
 # Make sure we have an appropriate Rust toolchain installed.
 if [ -d "$CARGO_HOME" ]; then
@@ -123,7 +123,7 @@ fi
 # This is where we will cache our Rust output.  Note the suggestions at
 # https://github.com/alexcrichton/cargo/commit/014765f788ca1c2476936835ca32cc2746f99b42
 # which describe how this needs to be named.
-export CARGO_TARGET_DIR="$CACHE_DIR/target"
+export CARGO_TARGET_DIR="$BUILD_DIR/target"
 
 if [ $RUST_SKIP_BUILD -ne 1 ]; then
   # Build our project (into CARGO_TARGET_DIR so we have caching) and copy it
