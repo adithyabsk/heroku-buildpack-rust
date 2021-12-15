@@ -129,7 +129,7 @@ export CARGO_TARGET_DIR="$CACHE_DIR/target"
 if [ -d "./circom" ]; then
   # https://doc.rust-lang.org/cargo/commands/cargo-install.html#compilation-options
   # By default target dir gets overridden when path is set.
-  cargo install --path circom --target-dir $CARGO_TARGET_DIR --root $BUILD_DIR
+  cargo install --bin circom --root $BUILD_DIR
 else
   git clone https://github.com/iden3/circom.git
   cd circom
