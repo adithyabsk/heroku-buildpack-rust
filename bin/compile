@@ -127,7 +127,9 @@ export CARGO_TARGET_DIR="$CACHE_DIR/target"
 
 # Setup Circom
 if [ -d "./circom" ]; then
-  cargo install --manifest-path circom/Cargo.toml --root $BUILD_DIR
+  # https://doc.rust-lang.org/cargo/commands/cargo-install.html#compilation-options
+  # By default target dir gets overridden when path is set.
+  cargo install --path circom --target-dir $CARGO_TARGET_DIR --root $BUILD_DIR
 else
   git clone https://github.com/iden3/circom.git
   cd circom
